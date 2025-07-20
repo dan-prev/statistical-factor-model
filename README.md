@@ -9,6 +9,7 @@ The goal is to test how different factor-based portfolio construction methods pe
 ⸻
 
 How It Works
+
 	1.	Input: A time series DataFrame of asset returns (data_returns) is passed to the strategy.
 	2.	Rolling Window: For each window:
 	•	APCA is used to extract underlying factors and loadings.
