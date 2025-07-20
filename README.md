@@ -1,15 +1,15 @@
-#Overview
-
+**Overview
+**
 This module implements a rolling backtest framework that uses Adaptive PCA (APCA) to uncover latent factors in financial return data. It then applies various portfolio weighting methods to construct long-short portfolios and evaluates their out-of-sample performance relative to a benchmark.
 
-#Purpose
-
+**Purpose
+**
 The goal is to test how different factor-based portfolio construction methods perform over time using a rolling window approach. The strategy is flexible: it supports both classic weighting techniques (like equal weight, risk parity, momentum) and more advanced methods based on machine learning models like gradient boosting.
 
 ⸻
 
-#How It Works
-	1.	Input: A time series DataFrame of asset returns (data_returns) is passed to the strategy.
+**How It Works
+**	1.	Input: A time series DataFrame of asset returns (data_returns) is passed to the strategy.
 	2.	Rolling Window: For each window:
 	•	APCA is used to extract underlying factors and loadings.
 	•	Factor returns are aggregated, and a weight method is selected.
@@ -20,8 +20,8 @@ The goal is to test how different factor-based portfolio construction methods pe
 
 ⸻
 
-#Supported Weighting Methods
-
+**Supported Weighting Methods
+**
 Out of the full set of supported methods, the current setup includes:
 	•	equal
 	•	risk_parity
@@ -34,8 +34,8 @@ Other advanced methods like tail_risk_parity, entropy, random_forest, and kelly 
 
 ⸻
 
-#Evaluation
-
+**Evaluation
+**
 The strategy includes built-in visualization tools to assess performance:
 	•	Cumulative Returns: Compare strategy vs. index
 	•	Drawdowns: See risk over time
