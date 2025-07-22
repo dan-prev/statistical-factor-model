@@ -1,45 +1,11 @@
-Overview
+The Statistical-Factor-Model project explores the use of Asymptotic Principal Component Analysis (APCA) to construct a statistical factor model for enhancing portfolio strategies in the Italian equity market, with the goal of outperforming the FTSEMIB Index. This model leverages high-dimensional financial return data to extract stable, time-based latent factors, which are then used to inform long-short portfolio construction.
 
-This module implements a rolling backtest framework that uses Adaptive PCA (APCA) to uncover latent factors in financial return data. It then applies various portfolio weighting methods to construct long-short portfolios and evaluates their out-of-sample performance relative to a benchmark.
+The approach is implemented within a rolling backtest framework, enabling continuous re-estimation of factor exposures and portfolio weights over time. This dynamic structure simulates a real-world investment process, allowing the model to adapt to evolving market conditions. Portfolios are constructed by ranking assets according to their factor exposures, forming long positions in the top decile and short positions in the bottom, with weights determined by various optimization techniques.
 
-Purpose
+Several portfolio weighting strategies are supported, ranging from traditional methods such as equal weighting, risk parity, and momentum, to more advanced approaches like maximin optimization, stochastic dominance, and gradient boosting. Additional methods like the Kelly criterion and tail risk parity are also included in the codebase but are currently commented out for ease of customization. The performance of each strategy is evaluated using key risk-adjusted return metrics, including the Sharpe ratio, maximum drawdown, and semi-deviation, providing a comprehensive view of portfolio robustness and effectiveness.
 
-The goal is to test how different factor-based portfolio construction methods perform over time using a rolling window approach. The strategy is flexible: it supports both classic weighting techniques (like equal weight, risk parity, momentum) and more advanced methods based on machine learning models like gradient boosting.
+The analysis reveals that different strategies cater to different investor preferences. Equal weighting and risk parity stand out for their ability to minimize Value-at-Risk, making them suitable for conservative investors. Gradient boosting delivers the lowest maximum drawdown at 6.8%, paired with a solid Sharpe ratio of 0.755, ideal for investors seeking higher returns with controlled downside risk. The stochastic dominance strategy offers balanced performance, while the maximin approach demonstrates strong risk-adjusted returns, with an information ratio of approximately 0.88. The Kelly criterion significantly boosts overall performance but introduces high drawdowns, reaching up to 48%, making it suitable only for investors with a high risk appetite.
 
-⸻
+The repository is organized into several components. The models folder contains modular Python files that handle APCA computation, portfolio weighting, data loading, and financial metric calculation. The RollingStrategy.py script implements the rolling APCA strategy and contains core methods for factor extraction and portfolio evaluation. The main Jupyter Notebook, Stat_factor_model.ipynb, serves as the entry point for running the analysis and generating visualizations. The Tickers.json file lists the assets used in the study and can be modified to analyze other markets, such as the UK.
 
-How It Works
-
-	1.	Input: A time series DataFrame of asset returns (data_returns) is passed to the strategy.
-	2.	Rolling Window: For each window:
-	•	APCA is used to extract underlying factors and loadings.
-	•	Factor returns are aggregated, and a weight method is selected.
-	•	Assets are ranked by their exposure to each factor, and quintile-based signals are generated.
-	•	Portfolios are built by going long the top decile and short the bottom, weighted by the chosen method.
-	•	Net returns are computed, accounting for transaction cost and slippage.
-	3.	Output: Portfolio returns are stored and compared across methods.
-
-⸻
-
-Supported Weighting Methods
-
-Out of the full set of supported methods, the current setup includes:
-	•	equal
-	•	risk_parity
-	•	momentum
-	•	maximin
-	•	stochastic
-	•	gradient_boosting
-
-Other advanced methods like tail_risk_parity, entropy, random_forest, and kelly are available but currently commented out—you can easily enable them if needed.
-
-⸻
-
-Evaluation
-
-The strategy includes built-in visualization tools to assess performance:
-	•	Cumulative Returns: Compare strategy vs. index
-	•	Drawdowns: See risk over time
-	•	Monthly Heatmaps: Visualize return seasonality across years
-
-The method evaluate_strategies(index_returns) runs all strategies and generates these plots in one go.
+To use the model, users should first ensure that Python and pip are installed, then run pip install -r requirements.txt to install the necessary libraries. After optionally editing Tickers.json to select a desired set of assets, the user can open the Stat_factor_model.ipynb notebook in Jupyter and execute the cells sequentially to perform the analysis, evaluate performance, and view visual outputs.
